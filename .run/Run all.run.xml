@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run all" type="PowerShellRunType" factoryName="PowerShell" scriptUrl="./scripts/run-all.ps1" workingDirectory="$SolutionDir$" executablePath="pwsh">
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>

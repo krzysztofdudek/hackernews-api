@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Stop infrastructure" type="PowerShellRunType" factoryName="PowerShell" scriptUrl="./scripts/stop-infrastructure.ps1" workingDirectory="$SolutionDir$" executablePath="pwsh">
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>

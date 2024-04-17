@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Stop all" type="PowerShellRunType" factoryName="PowerShell" scriptUrl="./scripts/stop-all.ps1" workingDirectory="$SolutionDir$" executablePath="pwsh">
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>

@@ -1,0 +1,32 @@
+name: hacker-news-api
+
+services:
+  host:
+    build:
+      dockerfile: ./src/Host/Dockerfile
+      context: .
+    environment:
+      ASPNETCORE_ENVIRONMENT: DockerCompose
+    networks:
+      - internal
+    ports:
+      - 8080:8080
+      - 8081:8081
+    links:
+      - redis
+    depends_on:
+      - redis
+    restart: unless-stopped
+  redis:
+    image: redis
+    networks:
+      - internal
+    volumes:
+      - redis-volume:/data
+    restart: unless-stopped
+networks:
+  internal:
+    driver: overlay
+    attachable: true
+volumes:
+  redis-volume:

@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{418E4754-C4AC-4495-B02A-DEA415404D31}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+		.dockerignore = .dockerignore
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		docker-compose.infrastructure.yaml = docker-compose.infrastructure.yaml
+		docker-compose.all.yaml = docker-compose.all.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "src", "{5B447190-0DAA-4331-A628-91A1127BAD6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "src\Host\Host.csproj", "{3B25C44B-A398-4316-9F3B-D2D3E3050F39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "tests", "{BA1A6B58-3C0D-4539-B265-7F0927198CEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host.Tests", "tests\Host.Tests\Host.Tests.csproj", "{3EC34DE7-B73F-4711-B433-45A93FD877C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3B25C44B-A398-4316-9F3B-D2D3E3050F39} = {5B447190-0DAA-4331-A628-91A1127BAD6D}
+		{3EC34DE7-B73F-4711-B433-45A93FD877C0} = {BA1A6B58-3C0D-4539-B265-7F0927198CEE}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B25C44B-A398-4316-9F3B-D2D3E3050F39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B25C44B-A398-4316-9F3B-D2D3E3050F39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B25C44B-A398-4316-9F3B-D2D3E3050F39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B25C44B-A398-4316-9F3B-D2D3E3050F39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EC34DE7-B73F-4711-B433-45A93FD877C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EC34DE7-B73F-4711-B433-45A93FD877C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EC34DE7-B73F-4711-B433-45A93FD877C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EC34DE7-B73F-4711-B433-45A93FD877C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

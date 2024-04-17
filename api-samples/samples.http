@@ -1,0 +1,20 @@
+### List best stories
+GET {{baseUrl}}/v0/beststories.json
+
+### Get story
+GET {{baseUrl}}/v0/item/8863.json
+
+### Get comment
+GET {{baseUrl}}/v0/item/2921983.json
+
+### Get ask
+GET {{baseUrl}}/v0/item/121003.json
+
+### Get job
+GET {{baseUrl}}/v0/item/192327.json
+
+### Get poll
+GET {{baseUrl}}/v0/item/126809.json
+
+### Get pollopt
+GET {{baseUrl}}/v0/item/160705.json
