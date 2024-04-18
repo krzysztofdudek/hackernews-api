@@ -10,6 +10,9 @@ public sealed class ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> log
         {
             await next(context);
         }
+        catch (OperationCanceledException)
+        {
+        }
         catch (StorageException)
         {
             logger.LogError("During processing the request a storage error occur");
