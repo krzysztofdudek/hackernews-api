@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.Extensions.Options;
 using Polly;
 
@@ -10,19 +11,15 @@ public static class ServiceCollectionExtensions
         var section = configuration.GetSection("Adapter");
         serviceCollection.Configure<AdapterOptions>(section);
         serviceCollection.AddTransient<IValidateOptions<AdapterOptions>, ValidateAdapterOptions>();
+        var options = section.Get<AdapterOptions>()!;
 
-        serviceCollection.AddHttpClient<IApiClient, ApiClient>((serviceProvider, httpClient) =>
-        {
-            var options = serviceProvider.GetRequiredService<IOptions<AdapterOptions>>().Value;
+        var rateLimitPolicy = Policy.RateLimitAsync(options.RateLimiting.NumberOfRequests, TimeSpan.FromSeconds(options.RateLimiting.TimePeriodSeconds),
+            (_, _) => new HttpResponseMessage(HttpStatusCode.TooManyRequests));
+        var retryPolicy = Policy.HandleResult<HttpResponseMessage>(x => x.StatusCode == HttpStatusCode.TooManyRequests)
+            .WaitAndRetryForeverAsync(_ => TimeSpan.FromSeconds(1));
+        var policy = Policy.WrapAsync(retryPolicy, rateLimitPolicy);
 
-            httpClient.BaseAddress = new Uri(options.BaseUrl);
-        }).AddPolicyHandler((serviceProvider, _) =>
-        {
-            var options = serviceProvider.GetRequiredService<IOptions<AdapterOptions>>().Value;
-
-            var bulkheadPolicy = Policy.BulkheadAsync(options.Bulkhead.NumberOfRequests).AsAsyncPolicy<HttpResponseMessage>();
-
-            return bulkheadPolicy;
-        });
+        serviceCollection.AddHttpClient<IApiClient, ApiClient>(httpClient => { httpClient.BaseAddress = new Uri(options.BaseUrl); })
+            .AddPolicyHandler(policy);
     }
 }

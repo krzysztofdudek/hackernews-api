@@ -6,7 +6,7 @@ public sealed class AdapterOptions
 {
     public string BaseUrl { get; [UsedImplicitly] set; } = null!;
 
-    public RateLimitingOptions Bulkhead { get; [UsedImplicitly] set; } = new();
+    public RateLimitingOptions RateLimiting { get; [UsedImplicitly] set; } = new();
 
     public sealed class RateLimitingOptions
     {
