@@ -13,7 +13,7 @@ internal sealed class BestStoriesQuery(IBestStoriesStore bestStoriesStore, IStor
 
         var bestStories = new List<Story>();
 
-        foreach (var id in bestStoriesIds.Take(count))
+        foreach (var id in bestStoriesIds)
         {
             var story = await storiesStore.TryGet(id, cancellationToken);
 
@@ -23,6 +23,6 @@ internal sealed class BestStoriesQuery(IBestStoriesStore bestStoriesStore, IStor
             bestStories.Add(story);
         }
 
-        return bestStories;
+        return bestStories.OrderByDescending(x => x.Score).Take(count).ToArray();
     }
 }

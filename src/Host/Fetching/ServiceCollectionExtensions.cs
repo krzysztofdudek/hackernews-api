@@ -7,7 +7,9 @@ public static class ServiceCollectionExtensions
         var section = configuration.GetSection("Fetching");
         serviceCollection.Configure<FetchingOptions>(section);
 
-        serviceCollection.AddHostedService<Worker>();
+        var options = section.Get<FetchingOptions>()!;
+        if (options.IsJobEnabled)
+            serviceCollection.AddHostedService<Worker>();
 
         serviceCollection.AddTransient<ILoader, Loader>();
         serviceCollection.AddTransient<IBestStoriesLoader, BestStoriesLoader>();

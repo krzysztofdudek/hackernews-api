@@ -6,12 +6,18 @@ internal sealed class Loader(IBestStoriesLoader bestStoriesLoader, IStoryLoader 
     {
         var bestStoriesIds = await bestStoriesLoader.Load(cancellationToken);
 
+        var storiesTasks = new List<Task>();
+
         foreach (var id in bestStoriesIds)
         {
             if (cancellationToken.IsCancellationRequested)
                 return;
 
-            await storyLoader.Load(id, cancellationToken);
+            var task = storyLoader.Load(id, cancellationToken);
+
+            storiesTasks.Add(task);
         }
+
+        await Task.WhenAll(storiesTasks);
     }
 }

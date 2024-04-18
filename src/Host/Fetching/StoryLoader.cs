@@ -35,20 +35,22 @@ internal sealed class StoryLoader(IStoriesStore store, IApiClient apiClient) : I
         await store.Save(story, cancellationToken);
     }
 
-    private async Task<int> CountComments(IEnumerable<int> kidIds, CancellationToken cancellationToken = default)
+    private async Task<int> CountComments(IEnumerable<int> ids, CancellationToken cancellationToken = default)
     {
-        var count = 0;
+        var tasks = ids.Select(id => CountComments(id, cancellationToken)).ToList();
 
-        foreach (var id in kidIds)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
+        await Task.WhenAll(tasks);
 
-            var itemDto = await apiClient.GetItem(id, cancellationToken);
+        return tasks.Select(x => x.Result).Sum();
+    }
 
-            if (itemDto.Type == "comment")
-                count += 1 + await CountComments(itemDto.Kids ?? [], cancellationToken);
-        }
+    private async Task<int> CountComments(int id, CancellationToken cancellationToken = default)
+    {
+        var itemDto = await apiClient.GetItem(id, cancellationToken);
 
-        return count;
+        if (itemDto.Type == "comment")
+            return 1 + await CountComments(itemDto.Kids ?? [], cancellationToken);
+
+        return 0;
     }
 }
