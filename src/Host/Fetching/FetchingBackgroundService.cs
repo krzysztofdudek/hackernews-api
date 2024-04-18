@@ -3,7 +3,8 @@ using Microsoft.Extensions.Options;
 
 namespace HackerNews.Api.Host.Fetching;
 
-internal sealed class Worker(IOptions<FetchingOptions> options, ILoader loader, ILogger<Worker> logger) : BackgroundService
+internal sealed class FetchingBackgroundService(IOptions<FetchingOptions> options, ILoader loader, ILogger<FetchingBackgroundService> logger)
+    : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {

@@ -9,7 +9,7 @@ public static class ServiceCollectionExtensions
 
         var options = section.Get<FetchingOptions>()!;
         if (options.IsJobEnabled)
-            serviceCollection.AddHostedService<Worker>();
+            serviceCollection.AddHostedService<FetchingBackgroundService>();
 
         serviceCollection.AddTransient<ILoader, Loader>();
         serviceCollection.AddTransient<IBestStoriesLoader, BestStoriesLoader>();
